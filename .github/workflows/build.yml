@@ -1,0 +1,37 @@
+name: build
+
+# Build *and test*. Nothing in this repo touches a Rhino API - it is arithmetic
+# over adjacency lists - so the tests need neither Rhino nor a licence and run
+# on a hosted runner exactly as they do locally.
+#
+# `windows-latest` only because the target framework is net7.0-windows, which
+# follows Core rather than any need of this code. The test project sets
+# RollForward=LatestMajor, so it runs on whatever the runner has.
+#
+# No sibling checkouts and no OTTER_CI_TOKEN: this repo references nothing, which
+# is the property that lets every other layer reference it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: Graphs
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build
+        run: dotnet build Graphs/OtterLogic.slnx -c Release
+
+      - name: Test
+        run: dotnet test Graphs/OtterLogic.slnx -c Release --no-build

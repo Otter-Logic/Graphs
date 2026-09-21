@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>OtterLogic.Graphs</RootNamespace>
+    <AssemblyName>OtterLogic.Graphs</AssemblyName>
+    <!-- A foundation layer beside Core: the graph contract and the algorithms
+         that run on it. MachineLearning sits above it, and so may any toolkit
+         that wants a route, a flow or a spanning tree with no learning involved.
+         No UI, no Grasshopper, and no OtterLogic reference at all. -->
+
+    <IsPackable>true</IsPackable>
+    <PackageId>OtterLogic.Graphs</PackageId>
+    <Description>The graph contract under the OtterLogic tools and the training-free algorithms that run on it - shortest paths, centrality, cut vertices, condensation and potential flow.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Otter-Logic/Graphs</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Otter-Logic/Graphs</RepositoryUrl>
+    <PackageTags>rhino;rhino3d;grasshopper;computational-design;graphs;path-finding</PackageTags>
+
+  </PropertyGroup>
+
+  <!-- Deliberately no references, package or project. A binary heap, a stack and
+       compressed sparse rows are all any of this needs, and referencing nothing
+       is what lets every other layer reference this one. -->
+
+</Project>
