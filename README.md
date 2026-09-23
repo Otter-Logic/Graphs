@@ -120,6 +120,31 @@ a corner. `VisibilityGraph` joins a caller's points and every obstacle corner
 wherever one sees another, weighted by distance; `Dijkstra` over it returns the
 true shortest path through the open plane rather than the best a grid offered.
 
+**`Spatial/`** does the same in three dimensions. `SolidObstacles` holds
+triangulated meshes — a closed one is a solid with an inside, an open one a wall
+that blocks only what crosses it — and answers the same two questions on the same
+terms as the planar case: the surface is not inside, a step is cut wherever it
+meets a face and each piece judged by its middle, and a seam between two
+coplanar triangles is not an edge, because a triangulation is not a shape.
+`LineNetwork` welds the ends of drawn lines into nodes within a tolerance, the
+earliest node on a tie so the numbering is a function of input order alone, and
+weighs each connection by the distance between its nodes unless told otherwise.
+
+**`Methods/`** is every algorithm above as a method on a wire, mirroring
+`ClusteringMethod` in Unsupervised. `GraphMethod` is a record with a name, a
+one-line description and a `Run`; `PathQuery` is what it is handed — the graph of
+either kind, n x 3 positions when there are any, and the sources and targets the
+question is about; `PathOutcome` is what comes back, reduced to the five shapes an
+answer about a graph can take, each named: routes, a value per node, a value per
+connection, groups of nodes, and nodes singled out. `PathRun.Solve` is the one
+entry point an adaptor calls, and `AutoMethod` is what runs when no method was
+chosen: pieces with nothing wired, Dijkstra from the sources, A* for one source
+and one target on a placed graph when the weights vouch for the estimate. The
+choice of measuring that estimate in three dimensions or in plan lives in
+`AStarMethod.ChooseMetric`, because it is arithmetic on the weights and not a
+thing to ask a person. Notes travel as two lists of strings, warnings and
+remarks, since this repo does not reference Core's `Note`.
+
 ## What is deliberately not here
 
 **Anything that knows what a sample is.** The k-nearest-neighbour graph of a point
@@ -148,6 +173,8 @@ how `PlanarObstacles` reaches it without either layer naming the other's types.
 ```
 src/OtterLogic.Graphs/   the graph type and one file per algorithm
   Planar/                obstacles in plan, and the visibility graph over them
+  Spatial/               obstacles in space, and line ends welded into a network
+  Methods/               each algorithm as a method record, and the one entry point that runs them
 tests/                   xunit; runs anywhere, no Rhino needed
 ```
 

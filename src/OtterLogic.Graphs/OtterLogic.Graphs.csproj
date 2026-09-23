@@ -10,7 +10,7 @@
 
     <IsPackable>true</IsPackable>
     <PackageId>OtterLogic.Graphs</PackageId>
-    <Description>The graph contract under the OtterLogic tools and the training-free algorithms that run on it - shortest paths, centrality, cut vertices, condensation and potential flow.</Description>
+    <Description>The graph contract under the OtterLogic tools and the training-free algorithms that run on it - shortest paths, centrality, cut vertices, condensation and potential flow - each also as a method record for one entry point, with obstacles and line networks in space.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Otter-Logic/Graphs</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Otter-Logic/Graphs</RepositoryUrl>
